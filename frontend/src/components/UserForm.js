@@ -35,13 +35,15 @@ const InnerForm = ({ handleSubmit }) => (
 );
 
 const UserForm = withFormik({
-  mapPropsToValues: props => ({ email: '', password: '' }),
+  mapPropsToValues: props => ({ email: '', password: '', genre: '' }),
   validationSchema: Yup.object().shape({
     password: Yup.string()
       .required('Password is required!'),
     email: Yup.string()
       .email('Invalid email address')
-      .required('Email is required!')
+      .required('Email is required!'),
+    genre: Yup.string()
+      .required('Genre is required!')
   }),
   handleSubmit: (values, { props, setSubmitting, setErrors }) => {
     props.save(values);

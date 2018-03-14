@@ -28,6 +28,7 @@ return (
         value={value}
         onChange={handleChange}
       />
+      {touched[name] && errors[name] && <div>{errors[name]}</div>}
   </Form.Field>
 );
 };
