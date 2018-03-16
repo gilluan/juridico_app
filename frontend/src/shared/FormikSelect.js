@@ -3,7 +3,7 @@ import { Form } from 'semantic-ui-react';
 import { Field } from "formik";
 
 const FormikSemanticSelect = ({
-  field: {name, value},
+  field: { name },
   form: {touched, errors, setFieldTouched, setFieldValue},
   options,
   onChange,
@@ -25,15 +25,15 @@ return (
         name={name}
         error={ !!touched[name] && !!errors[name] }
         options={options}
-        value={value}
         onChange={handleChange}
+        onBlur={setFieldTouched}
       />
       {touched[name] && errors[name] && <div>{errors[name]}</div>}
   </Form.Field>
 );
 };
 
-const FormikSelect = (field, ...props) => (
+const FormikSelect = (field, options, ...props) => (
   <Field
     {...field}
     component={FormikSemanticSelect}

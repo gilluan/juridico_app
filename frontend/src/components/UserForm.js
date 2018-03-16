@@ -4,15 +4,16 @@ import Yup from 'yup';
 import FormikInput from '../shared/FormikInput';
 import FormikForm from '../shared/FormikForm';
 import FormikSelect from '../shared/FormikSelect';
+import { DisplayFormikState } from '../formik-helper';
 import { Button } from 'semantic-ui-react'
 
 const options = [
-  { text: 'Male', value: 'male' },
-  { text: 'Female', value: 'female' },
+  { key: "m", text: 'Male', value: 'male' },
+  { key: "f", text: 'Female', value: 'female' },
 ];
 
-const InnerForm = ({ handleSubmit }) => (
-  <FormikForm onSubmit={handleSubmit}>
+const InnerForm = props =>  (
+  <FormikForm onSubmit={props.handleSubmit}>
     <FormikInput
       fluid
       placeholder='Email'
@@ -31,11 +32,12 @@ const InnerForm = ({ handleSubmit }) => (
       options={options}
      />
     <Button type='submit'>Submit</Button>
+    <DisplayFormikState {...props} />
   </FormikForm>
 );
 
 const UserForm = withFormik({
-  mapPropsToValues: props => ({ email: '', password: '', genre: '' }),
+  mapPropsToValues: props => ({email: '', password: '', genre: '' }),
   validationSchema: Yup.object().shape({
     password: Yup.string()
       .required('Password is required!'),
