@@ -1,19 +1,9 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-const user = (state = { users: {} }, action) => {
-  return state
-}
-
-const errorMessage = (state = null, action) => {
-//   const { type, error } = action
-
-  return state
-}
-
+import auth from './auth';
 
 const rootReducer = combineReducers({
-  user,
-  errorMessage,
+  auth
 })
 
 export default rootReducer
