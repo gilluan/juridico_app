@@ -13,7 +13,7 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 //TODO: substituir o link por um link de ambiente
-const httpLink = new HttpLink({ uri: 'http://localhost:4000' })
+const httpLink = new HttpLink({ uri: 'http://localhost:4000/graphql' })
 
 const client = new ApolloClient({
   link: httpLink,
