@@ -53,8 +53,7 @@ const UserForm = withFormik({
   handleSubmit: async (values, { props, setSubmitting, setErrors }) => {
     //props.save(values);
     let { email, password } = values;
-    let { data } = await props.loginMutation({variables: {email, password}})
-    let { token } =  data.login;
+    let { data: { login: { token } } } = await props.loginMutation({variables: {email, password}})
     console.log(token);
   },
 })(InnerForm);
