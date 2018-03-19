@@ -25,12 +25,12 @@ const InnerForm = props =>  (
       type="password"
       name="password"
      />
-     <FormikSelect
+     {/*<FormikSelect
       fluid
       placeholder="Genre"
       name="genre"
       options={options}
-     />
+     />*/}
     <Button type='submit'>Submit</Button>
     <DisplayFormikState {...props} />
   </FormikForm>
@@ -44,8 +44,8 @@ const UserForm = withFormik({
     email: Yup.string()
       .email('Invalid email address')
       .required('Email is required!'),
-    genre: Yup.string()
-      .required('Genre is required!')
+    // genre: Yup.string()
+    //   .required('Genre is required!')
   }),
   handleSubmit: (values, { props, setSubmitting, setErrors }) => {
     props.save(values);
