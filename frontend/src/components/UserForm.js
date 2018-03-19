@@ -6,6 +6,9 @@ import FormikForm from '../shared/FormikForm';
 import FormikSelect from '../shared/FormikSelect';
 import { DisplayFormikState } from '../formik-helper';
 import { Button } from 'semantic-ui-react'
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
+
 
 const options = [
   { key: "m", text: 'Male', value: 'male' },
@@ -47,9 +50,32 @@ const UserForm = withFormik({
     // genre: Yup.string()
     //   .required('Genre is required!')
   }),
-  handleSubmit: (values, { props, setSubmitting, setErrors }) => {
-    props.save(values);
+  handleSubmit: async (values, { props, setSubmitting, setErrors }) => {
+    //props.save(values);
+    let { email, password } = values;
+    let { data } = await props.loginMutation({variables: {email, password}})
+    let { token } =  data.login;
+    console.log(token);
   },
 })(InnerForm);
 
-export default UserForm
+const QUERY =  gql`
+  query {
+    getUsers {
+      id
+    }
+  }
+`;
+
+const LOGIN_USER = gql`
+  mutation LoginMutation($email: String!, $password: String!){
+    login(email: $email, password: $password) {
+      token
+    }
+}
+`
+
+export default compose(
+    graphql(QUERY, {name: 'myQ'}),
+    graphql(LOGIN_USER, {name: 'loginMutation'})
+)(UserForm)
