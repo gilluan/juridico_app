@@ -21,14 +21,14 @@ const resolvers = {
         // },
         async signup(parent, args, { SECRET_KEY }, info) {
             const password = await bcrypt.hash(args.password, 10)
+            
             let newUser = Object.assign({}, args, {password})
+            
             const {user: { id }} = await new User(newUser).save()
             
             const token = jwt.sign({userId: id}, SECRET_KEY)
-            return {
-                user,
-                token
-            }
+
+            return { user, token }
         },
 
         async login(parent, { email, password }, { SECRET_KEY }, info) {
@@ -42,10 +42,7 @@ const resolvers = {
             
             const token = jwt.sign({userId: user.id}, SECRET_KEY)
             
-            return {
-                token,
-                user
-            }
+            return { token, user }
         }
     }
 }
