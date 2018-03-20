@@ -4,6 +4,8 @@ import Yup from 'yup';
 import FormikInput from '../../shared/FormikInput';
 import FormikForm from '../../shared/FormikForm';
 import { Button } from 'semantic-ui-react';
+import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
 
 const InnerForm = props => (
   <FormikForm onSubmit={props.handleSubmit}>
@@ -30,7 +32,7 @@ const LoginForm = withFormik({
   login: Yup.string()
     .required('Login is required!')
   }),
-  handleSubmit: (values, { props }) => {
+  handleSubmit: async (values, { props }) => {
     props.handleLogin(values);
   },
   displayName: 'LoginForm'
