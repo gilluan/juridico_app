@@ -1,12 +1,17 @@
 import { User} from './connectors'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { isAuthenticatedResolver } from './authenticatedResolver';
+
+
+
 
 const resolvers = {
     Query: {
-        async getUser(parent, {id}, context, info) {
+        
+        getUser:  isAuthenticatedResolver.createResolver(async (parent, {id}, context, info) => {
             return await User.findById(id);
-        },
+        }),
         async getUsers(parent, args, context, info) {
             return await User.find();
         }
