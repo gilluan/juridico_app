@@ -9,7 +9,7 @@ import { isAuthenticatedResolver } from './authenticatedResolver';
 const resolvers = {
     Query: {
         
-        getUser:  isAuthenticatedResolver.createResolver(async (parent, {id}, context, info) => {
+        getUser:  isAuthenticatedResolver.createResolver(async (parent, {user: {id}}, context, info) => {
             return await User.findById(id);
         }),
         async getUsers(parent, args, context, info) {
