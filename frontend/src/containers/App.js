@@ -5,12 +5,13 @@ import Switch from "react-router-dom/Switch";
 import { connect } from "react-redux";
 
 const App = props => {
-  const { dispatch } = this.props;
+  const { dispatch } = props;
   return (
     <div>
-    <Switch>
-      <Route path="/users" component={UserPage} />
-    </Switch>
+      <Switch>
+        <Route exact path="/" component={UserPage} />
+        <Route path="/users" component={UserPage} />
+      </Switch>
     </div>
 );
 };

@@ -1,5 +1,5 @@
 import { httpPost, httpGet } from "../utils";
-import { push } from "react-redux-router";
+import { push } from "react-router-redux";
 import Constants from '../constants';
 
 const loginRequestAction = () => {
@@ -23,6 +23,8 @@ export function loginUserRequest() {
 
 export function loginUserResponse(payload) {
   return dispatch => {
+    localStorage.setItem("access_token", payload);
     dispatch(loginReceiveAction(payload));
+    dispatch(push("/"));
   }
 }

@@ -14,7 +14,6 @@ export default (state = initialState, action) => {
         user: action.credentials
       }
     case Constants.LOGIN_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         isAuthenticated: true,

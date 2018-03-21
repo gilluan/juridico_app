@@ -43,7 +43,7 @@ const mapDispatchToProps = dispatch => ({
   handleLogin: async (credentials, props) => {
     dispatch(loginUserRequest());
     let { login, password } = credentials;
-    let { data: { login: { token } } } = await props.loginMutation({variables: {login, password}});
+    let { data: { login: { token } } } = await props.loginMutation({variables: {email: login, password}});
     dispatch(loginUserResponse(token));
   }
 });
