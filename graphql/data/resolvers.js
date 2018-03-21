@@ -24,9 +24,9 @@ const resolvers = {
             
             let newUser = Object.assign({}, args, {password})
             
-            const {user: { id }} = await new User(newUser).save()
+            const user = await new User(newUser).save()
             
-            const token = jwt.sign({userId: id}, SECRET_KEY)
+            const token = jwt.sign({userId: user.id}, SECRET_KEY)
 
             return { user, token }
         },
