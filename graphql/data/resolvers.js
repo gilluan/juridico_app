@@ -1,4 +1,4 @@
-import { User} from './connectors'
+import { User, Pet} from './connectors'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { isAuthenticatedResolver } from './authenticatedResolver';
@@ -14,11 +14,10 @@ const resolvers = {
         })
     },
     Mutation: {
-        // async addUser(parent, args, context, info) {
-        //     let user = await new User(args).save();
-        //     console.log('saved', user)
-        //     return user;
-        // },
+        createPet: isAuthenticatedResolver.createResolver(async (parent, args, context, info) => {
+            let pet = await new Pet(args.pet).save();
+            return JSON.stringify(pet);
+        }),
         async signup(parent, args, { SECRET_KEY }, info) {
             const password = await bcrypt.hash(args.password, 10)
             

@@ -17,4 +17,20 @@ const UserSchema = Mongoose.Schema({
 const User = Mongoose.model('User', UserSchema);
 
 
-export { User };
+const PetSchema = Mongoose.Schema({
+    nome: String,
+    especie: String,
+    cor: String,
+    raca: String,
+    sexo: String,
+    peso: Number,
+    nascimento: Number,
+    criado: Number,
+    ativo: Boolean,
+    comportamento: [String], //TODO VERIFICAR
+    observacoes: String
+});
+
+const Pet = Mongoose.model('Pet', PetSchema);
+
+export { User, Pet };
