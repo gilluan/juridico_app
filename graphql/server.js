@@ -14,13 +14,19 @@ const graphQLServer = express();
 
 const addUser = async (req, res, next) => {
   const authorization = req.headers ? req.headers.authorization : {};
-  const token = authorization ? authorization.token : "NO_TOKEN";
+  const token = authorization ? authorization.token : "";
+
+if(token) {
   try {
+    
     const { user } = await jwt.verify(token, SECRET_KEY);
     req.user = user;
   } catch (err) {
-    console.log(err);
+    console.log(' Erro na verificacao do token', err);
   }
+      
+    }
+  
   next();
 };
 
