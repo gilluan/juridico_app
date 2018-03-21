@@ -13,9 +13,10 @@ const SECRET_KEY = 'mySecretKey';
 const graphQLServer = express();
 
 const addUser = async (req, res, next) => {
-  const {token} = req.headers ? req.headers.authorization || {};
+  const authorization = req.headers ? req.headers.authorization : {};
+  const token = authorization ? authorization.token : "NO_TOKEN";
   try {
-    const { user } = await jwt.verify(token || "ERROR", SECRET_KEY);
+    const { user } = await jwt.verify(token, SECRET_KEY);
     req.user = user;
   } catch (err) {
     console.log(err);
