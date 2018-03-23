@@ -13,17 +13,16 @@ const resolvers = {
             return await User.find();
         },
         async getPerson(parent, args, context, info) {
-            return {name: "gilluan", dogs: []}
+            return [{name: "gilluan"}, {name: "rayanne"}]
         }
     },
     Person: {
         dogs: (parent, args, context, info) => {
             console.log('parent', parent)
-            console.log('args', args)
-            console.log('context', context)
-            console.log('info', info)
-
-            return [{name: "filó"}]
+            return [
+                {name: "filó"},
+                {name: "outo"}
+            ]
         }
     },
     Mutation: {

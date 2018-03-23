@@ -5,7 +5,7 @@ const typeDefs = `
   type Query {
     getUser(id: String): User
     getUsers: [User!]!
-    getPerson: Person
+    getPerson: [Person!]!
   }
 
   type Mutation {
