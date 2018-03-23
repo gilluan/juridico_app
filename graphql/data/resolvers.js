@@ -9,9 +9,22 @@ const resolvers = {
         getUser:  isAuthenticatedResolver.createResolver(async (parent, {id}, context, info) => {
             return await User.findById(id);
         }),
-        getUsers: isAuthenticatedResolver.createResolver(async (parent, args, context, info) => {
+        async getUsers(parent, args, context, info) {
             return await User.find();
-        })
+        },
+        async getPerson(parent, args, context, info) {
+            return {name: "gilluan", dogs: []}
+        }
+    },
+    Person: {
+        dogs: (parent, args, context, info) => {
+            console.log('parent', parent)
+            console.log('args', args)
+            console.log('context', context)
+            console.log('info', info)
+
+            return [{name: "filó"}]
+        }
     },
     Mutation: {
         createPet: isAuthenticatedResolver.createResolver(async (parent, args, context, info) => {

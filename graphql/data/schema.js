@@ -5,12 +5,22 @@ const typeDefs = `
   type Query {
     getUser(id: String): User
     getUsers: [User!]!
+    getPerson: Person
   }
 
   type Mutation {
     signup(email: String!, password: String!, name: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
     createPet(pet: PetInput): String!
+  }
+
+  type Dog {
+    name: String!
+  }
+
+  type Person {
+    name: String!
+    dogs: [Dog!]!
   }
 
   type User {
