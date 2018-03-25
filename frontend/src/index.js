@@ -2,7 +2,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Root from './containers/Root'
-import configureStore from './store/configureStore'
+import configureStore from './store/configureStore';
+import configureHistory from './store/configureHistory';
 import registerServiceWorker from './registerServiceWorker';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -20,13 +21,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-const store = configureStore()
+const store = configureStore(configureHistory)();
 
 render(
    <ApolloProvider client={client}>
-    <Router>
-      <Root store={store} />
-    </Router>
+      <Root store={store} history={configureHistory} />
     </ApolloProvider>,
   document.getElementById('root')
 )

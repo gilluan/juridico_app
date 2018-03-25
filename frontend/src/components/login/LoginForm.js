@@ -32,8 +32,8 @@ const LoginForm = withFormik({
   login: Yup.string()
     .required('Login is required!')
   }),
-  handleSubmit: async (values, { props }) => {
-    props.handleLogin(values);
+  handleSubmit: (values, { props }) => {
+    props.handleLogin(values, props);
   },
   displayName: 'LoginForm'
 })(InnerForm);

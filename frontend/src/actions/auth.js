@@ -1,5 +1,5 @@
 import { httpPost, httpGet } from "../utils";
-import { push } from "react-redux-router";
+import { push } from "react-router-redux";
 import Constants from '../constants';
 
 const loginRequestAction = () => {
@@ -15,26 +15,16 @@ const loginReceiveAction = payload => {
   }
 }
 
-export function loginUser(credentials) {
+export function loginUserRequest() {
   return dispatch => {
     dispatch(loginRequestAction());
-    return new Promise(function(resolve, reject) {
-      let request=new XMLHttpRequest();
-      let payload = `
-        mutation {
-          login(email: ${credentials.login}, password: ${credentials.password}) {
-            token
-          }
-        }
-      `;
-      request.open("POST", "http://localhost:4000/graphql", true);
-      request.setRequestHeader("Content-Type", "application/graphql");
-      request.send(payload);
-      request.onreadystatechange = () => {
-        if (request.readyState === 4) {
-          resolve(request.responseText)
-        }
-      }
-    }).then(response => dispatch(loginReceiveAction(response)))
   };
+}
+
+export function loginUserResponse(payload) {
+  return dispatch => {
+    localStorage.setItem("access_token", payload);
+    dispatch(loginReceiveAction(payload));
+    dispatch(push("/"));
+  }
 }

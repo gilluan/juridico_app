@@ -3,7 +3,9 @@ import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
 import LoginForm from '../components/login/LoginForm';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { loginUser } from "../actions/index";
+import { loginUserRequest, loginUserResponse } from "../actions/index";
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
 
 const LoginPage = props => (
   <div className='login-form'>
@@ -25,14 +27,26 @@ const LoginPage = props => (
   </div>
 );
 
+const LOGIN_USER = gql`
+  mutation loginMutation($email: String!, $password: String!){
+    login(email: $email, password: $password) {
+      token
+    }
+}
+`;
+
 const mapStateToProps = state => ({
   isAuthenticated: true
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleLogin: credentials => {
-    dispatch(loginUser(credentials))
+  handleLogin: async (credentials, props) => {
+    dispatch(loginUserRequest());
+    let { login, password } = credentials;
+    let { data: { login: { token } } } = await props.loginMutation({variables: {email: login, password}});
+    dispatch(loginUserResponse(token));
   }
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPage));
+const LoginPageWithGraphQL = compose(graphql(LOGIN_USER, {name: "loginMutation"}))(LoginPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPageWithGraphQL));
