@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { Component }  from 'react'
 import { withFormik } from 'formik'
 import Yup from 'yup';
 import FormikInput from '../../shared/FormikInput';
 import FormikForm from '../../shared/FormikForm';
 import { Button } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
+import { Mutation } from 'react-apollo'
+import { withRouter } from "react-router-dom";
+
+
+const LOGIN_USER = gql`
+  mutation loginMutation($email: String!, $password: String!){
+      login(email: $email, password: $password) {
+        token
+      }
+  }
+`;
 
 const InnerForm = props => (
   <FormikForm onSubmit={props.handleSubmit}>
@@ -24,7 +35,7 @@ const InnerForm = props => (
   </FormikForm>
 );
 
-const LoginForm = withFormik({
+const Form = withFormik({
   mapPropsToValues: props => ({login: '', password: ''}),
   validationSchema: Yup.object().shape({
   password: Yup.string()
@@ -42,4 +53,20 @@ const LoginForm = withFormik({
   displayName: 'LoginForm'
 })(InnerForm);
 
-export default LoginForm;
+class LoginForm extends Component {
+  render() {
+    return (
+      <Mutation mutation={LOGIN_USER}>
+        {login => {
+          return (
+            <Form login={login} {...this.props} />
+          )
+        }}
+
+      </Mutation>
+    )
+  }
+}
+
+
+export default withRouter(LoginForm);

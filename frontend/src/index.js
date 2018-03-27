@@ -17,11 +17,10 @@ const httpLink = createHttpLink({ uri: 'http://localhost:4000/graphql' })
 
 
 const middlewareLink = new ApolloLink((operation, forward) => {
-  const token = localStorage.getItem('graphcoolToken')
-  const authorizationHeader = token ? `Bearer ${token}` : null
+  const token = localStorage.getItem('userToken')
   operation.setContext({
     headers: {
-      authorization: authorizationHeader
+      authorization: token
     }
   })
   return forward(operation)

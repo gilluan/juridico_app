@@ -17,16 +17,6 @@ const UserPage = ({save, lista, listUsers, myQ}) => (
   </div>
 );
 
-// const mapStateToProps = state => ({
-//   lista: [{nome: 'Gilluan'}]
-// })
-
-// const mapDispatchToProps = dispatch => ({
-//   save: (user) => {
-//     dispatch(saveUser(user));
-//   }
-// })
-
 const QUERY =  gql`
     query {
       getUsers {
