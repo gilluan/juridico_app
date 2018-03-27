@@ -8,7 +8,6 @@ import FormikInput from '../shared/FormikInput';
 import { Button } from 'semantic-ui-react';
 import FormikForm from '../shared/FormikForm';
 
-
 const QUERY_LIST_CLIENTES = gql`
   query{
     getClientes {
@@ -17,7 +16,6 @@ const QUERY_LIST_CLIENTES = gql`
     }
   }
 `;
-
 
 const ListCliente = () => (
     <Query query={QUERY_LIST_CLIENTES}>
@@ -46,7 +44,6 @@ const InnerForm = ({handleSubmit}) => (
       placeholder='Nome'
       name="nome"
      />
-    
     <Button type='submit'>Salvar</Button>
   </FormikForm>
 );
@@ -62,12 +59,8 @@ const ClienteForm = withFormik({
       console.log(props)
       resetForm();
   },
-  handleReset: (t, a) => {
-
-  },
   displayName: 'ClienteForm'
 })(InnerForm);
-
 
 const SAVE_CLIENTE = gql`
     mutation saveCliente($nome: String!){
