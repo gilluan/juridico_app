@@ -27,7 +27,7 @@ const Root = () => {
             <Container>
               <Switch>
                 <Route path="/login" component={LoginPage} />
-                <PrivateRoute path="/" component={App} />
+                <Route path="/" component={App} />
               </Switch>
             </Container>
         </div>
