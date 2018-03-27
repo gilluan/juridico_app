@@ -1,39 +1,46 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message } from 'semantic-ui-react'
 import LoginForm from '../components/login/LoginForm';
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { loginUserRequest, loginUserResponse } from "../actions/index";
-import { graphql, compose } from 'react-apollo'
+//import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-
-const LoginPage = props => (
-  <div className='login-form'>
-    <Grid
-      textAlign='center'
-      style={{ height: '100%' }}
-      verticalAlign='middle'
-    >
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          Log-in to your account
-        </Header>
-        <LoginForm {...props} />
-        <Message>
-          New to us? <a href=''>Sign Up</a>
-        </Message>
-      </Grid.Column>
-    </Grid>
-  </div>
-);
+import { Mutation } from 'react-apollo'
 
 const LOGIN_USER = gql`
   mutation loginMutation($email: String!, $password: String!){
-    login(email: $email, password: $password) {
-      token
-    }
-}
+      login(email: $email, password: $password) {
+        token
+      }
+  }
 `;
+
+
+const LoginPage = props => (
+  <Mutation mutation={LOGIN_USER}>
+    {(login) => (
+      <div className='login-form'>
+      <Grid
+        textAlign='center'
+        style={{ height: '100%' }}
+        verticalAlign='middle'
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' color='teal' textAlign='center'>
+            Log-in to your account
+          </Header>
+          <LoginForm {...props} login={login} />
+          <Message>
+            New to us? <a href=''>Sign Up</a>
+          </Message>
+        </Grid.Column>
+      </Grid>
+    </div>
+    )}
+    
+  </Mutation>
+);
+
 
 // const mapStateToProps = state => ({
 //   isAuthenticated: true
@@ -48,5 +55,5 @@ const LOGIN_USER = gql`
 //   }
 // });
 
-const LoginPageWithGraphQL = compose(graphql(LOGIN_USER, {name: "loginMutation"}))(LoginPage);
-export default LoginPageWithGraphQL;
+//const LoginPageWithGraphQL = compose(graphql(LOGIN_USER, {name: "loginMutation"}))(LoginPage)
+export default LoginPage

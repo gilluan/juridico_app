@@ -32,8 +32,12 @@ const LoginForm = withFormik({
   login: Yup.string()
     .required('Login is required!')
   }),
-  handleSubmit: (values, { props }) => {
-    props.handleLogin(values, props);
+  handleSubmit: async (values, { props }) => {
+    let { login, password } = values
+    let retorno = await props.login({variables: {email: login, password}})
+    let { data: { login: { token } } } = retorno
+    localStorage.setItem('userToken', token)
+    props.history.replace('/')
   },
   displayName: 'LoginForm'
 })(InnerForm);
