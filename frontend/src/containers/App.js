@@ -1,24 +1,21 @@
 import React from 'react';
-import { withRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import UserPage from "./UserPage";
+import ClientePage from "./ClientePage";
 import Switch from "react-router-dom/Switch";
-import { connect } from "react-redux";
 
 const App = props => {
-  const { dispatch } = props;
   return (
     <div>
       <Switch>
         <Route exact path="/" component={UserPage} />
         <Route path="/users" component={UserPage} />
+        <Route path="/pets" component={ClientePage} />
       </Switch>
     </div>
 );
 };
 
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
 
-export default withRouter(connect(mapStateToProps)(App));
+export default App;

@@ -17,15 +17,15 @@ const UserPage = ({save, lista, listUsers, myQ}) => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  lista: [{nome: 'Gilluan'}]
-})
+// const mapStateToProps = state => ({
+//   lista: [{nome: 'Gilluan'}]
+// })
 
-const mapDispatchToProps = dispatch => ({
-  save: (user) => {
-    dispatch(saveUser(user));
-  }
-})
+// const mapDispatchToProps = dispatch => ({
+//   save: (user) => {
+//     dispatch(saveUser(user));
+//   }
+// })
 
 const QUERY =  gql`
     query {
@@ -35,7 +35,4 @@ const QUERY =  gql`
     }
   `;
 
-
-export default compose(
-  graphql(QUERY, {name: 'myQ'})
-)(withRouter(connect(mapStateToProps, mapDispatchToProps)(UserPage)));
+export default UserPage;

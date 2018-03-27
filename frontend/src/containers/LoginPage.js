@@ -35,18 +35,18 @@ const LOGIN_USER = gql`
 }
 `;
 
-const mapStateToProps = state => ({
-  isAuthenticated: true
-});
+// const mapStateToProps = state => ({
+//   isAuthenticated: true
+// });
 
-const mapDispatchToProps = dispatch => ({
-  handleLogin: async (credentials, props) => {
-    dispatch(loginUserRequest());
-    let { login, password } = credentials;
-    let { data: { login: { token } } } = await props.loginMutation({variables: {email: login, password}});
-    dispatch(loginUserResponse(token));
-  }
-});
+// const mapDispatchToProps = dispatch => ({
+//   handleLogin: async (credentials, props) => {
+//     dispatch(loginUserRequest());
+//     let { login, password } = credentials;
+//     let { data: { login: { token } } } = await props.loginMutation({variables: {email: login, password}});
+//     dispatch(loginUserResponse(token));
+//   }
+// });
 
 const LoginPageWithGraphQL = compose(graphql(LOGIN_USER, {name: "loginMutation"}))(LoginPage);
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPageWithGraphQL));
+export default LoginPageWithGraphQL;
