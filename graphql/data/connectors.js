@@ -17,20 +17,13 @@ const UserSchema = Mongoose.Schema({
 const User = Mongoose.model('User', UserSchema);
 
 
-const PetSchema = Mongoose.Schema({
+const ClienteSchema = Mongoose.Schema({
     nome: String,
-    especie: String,
-    cor: String,
-    raca: String,
     sexo: String,
-    peso: Number,
     nascimento: Number,
-    criado: Number,
-    ativo: Boolean,
-    comportamento: [String], //TODO VERIFICAR
     observacoes: String
 });
 
-const Pet = Mongoose.model('Pet', PetSchema);
+const Cliente = Mongoose.model('Cliente', ClienteSchema);
 
-export { User, Pet };
+export { User, Cliente };

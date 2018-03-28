@@ -6,21 +6,22 @@ const typeDefs = `
     getUser(id: String): User
     getUsers: [User!]!
     getPerson: [Person!]!
+    getClientes: [Cliente!]!
   }
 
   type Mutation {
     signup(email: String!, password: String!, name: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
-    createPet(pet: PetInput): String!
+    saveCliente(cliente: ClienteInput): Cliente!
   }
 
-  type Dog {
-    name: String!
+  type Cliente {
+    id: ID
+    nome: String!
   }
 
   type Person {
     name: String!
-    dogs: [Dog!]!
   }
 
   type User {
@@ -30,17 +31,10 @@ const typeDefs = `
     password: String
   }
 
-  input PetInput {
+  input ClienteInput {
     nome: String!
-    especie: String!
-    cor: String
-    raca: String
     sexo: String
-    peso: Float
     nascimento: Int
-    criado: Int
-    ativo: Boolean
-    comportamento: [String]
     observacoes: String
   }
 
