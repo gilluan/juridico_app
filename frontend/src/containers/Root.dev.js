@@ -14,9 +14,6 @@ const Root = () => {
       <div>
       
         <Menu inverted>
-          <Menu.Item name='home' active={false} onClick={this.handleItemClick} >
-            <Link to="/login">Login</Link>
-            </Menu.Item>
             <Menu.Item name='messages' active={true} onClick={this.handleItemClick}>
             <Link to="/users">Usuários</Link>
             </Menu.Item>
